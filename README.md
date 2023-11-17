@@ -1,0 +1,1 @@
+Using [cron-job.org](cron-job.org) this serveless function checks if mercury is in retrograde. If it is, users receive a text message. 
