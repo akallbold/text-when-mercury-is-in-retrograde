@@ -1,0 +1,11 @@
+{
+  "name": "mercury-text-lambda",
+  "version": "1.0.0",
+  "description": "Using [cron-job.org](cron-job.org) this serveless function checks if mercury is in retrograde. If it is, users receive a text message.",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
