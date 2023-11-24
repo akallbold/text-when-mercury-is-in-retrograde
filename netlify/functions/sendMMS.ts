@@ -2,7 +2,8 @@ import twilio from "twilio";
 
 export const handler = async () => {
   const today = new Date();
-  const yesterday = new Date(today.setDate(today.getDate() - 1));
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
   console.log("Welcome!", { today, yesterday });
   try {
     const isMercuryInRetrograde = await checkIfRetrograde(today);
@@ -29,7 +30,6 @@ const getRandomGif = async () => {
   const searchString = "mercury+is+in+retrograde";
   if (giphy_api && giphy_api_key) {
     console.log("we have giphy_api && giphy_api_key");
-
     try {
       const response = await fetch(
         `${giphy_api}?api_key=${giphy_api_key}&q=${searchString}&limit=10&offset=0&rating=g&lang=en&bundle=messaging_non_clips`,
@@ -39,6 +39,7 @@ const getRandomGif = async () => {
       );
 
       const data = await response.json();
+      console.log({ data });
       const gifArray = data.data;
       const randomIndex = Math.floor(Math.random() * gifArray.length);
       const randomImage = gifArray[randomIndex].images.original.url;
