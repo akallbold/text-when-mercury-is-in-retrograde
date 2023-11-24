@@ -1,8 +1,9 @@
 import twilio from "twilio";
 
 export const handler = async () => {
-  console.log("Welcome! ");
+  console.log("Welcome!");
   try {
+    console.log("Welcome to the try!");
     checkForMercuryAndSendSMS();
     return {
       statusCode: 200,
@@ -16,11 +17,18 @@ export const handler = async () => {
 };
 
 const checkForMercuryAndSendSMS = async () => {
+  console.log("Welcome to the checkForMercuryAndSendSMS function!");
   const mercury_api = process.env.MERCURY_API;
   const giphy_api = process.env.GIPHY_API;
   const giphy_api_key = process.env.GIPHY_API_KEY;
   if (mercury_api) {
+    console.log("We have a mercury_api!");
+
     const isMercuryInRetrogradeFunctionToday = async () => {
+      console.log(
+        "Welcome to the isMercuryInRetrogradeFunctionToday function!"
+      );
+
       try {
         const response = await fetch(mercury_api, {
           method: "GET",
@@ -34,6 +42,10 @@ const checkForMercuryAndSendSMS = async () => {
     };
 
     const wasMercuryInRetrogradeYesterdayFunction = async () => {
+      console.log(
+        "Welcome to the wasMercuryInRetrogradeYesterdayFunction function!"
+      );
+
       const dateNow = new Date();
       const yesterday = new Date(dateNow.setDate(dateNow.getDate() - 1));
       const yyyy = yesterday.getFullYear();
@@ -56,6 +68,7 @@ const checkForMercuryAndSendSMS = async () => {
     };
     // get mercury in retrograde gif
     const getRandomGif = async () => {
+      console.log("In getRandomGif func");
       const searchString = "mercury+is+in+retrograde";
 
       try {
@@ -82,6 +95,10 @@ const checkForMercuryAndSendSMS = async () => {
 
     // if (isMercuryInRetrograde && !wasMercuryInRetrogradeYesterday){
     if (true) {
+      console.log(
+        "Now we are in the part of the code where we have determined we need to send the MMS"
+      );
+
       const account_sid = process.env.ACCOUNT_SID;
       const auth_token = process.env.AUTH_TOKEN;
       const to_phone_number = process.env.TO_PHONE_NUMBER;
@@ -89,8 +106,9 @@ const checkForMercuryAndSendSMS = async () => {
       const message = `Mercury is in retrograde. Be careful out there!`;
       const randomGif = await getRandomGif();
       if (to_phone_number && from_phone_number && account_sid && auth_token) {
-        console.log("Do we get in here? ");
+        console.log("We have the vars we need");
         let client = twilio(account_sid, auth_token);
+        console.log("Twilio config created");
         client.messages
           .create({
             body: message,
