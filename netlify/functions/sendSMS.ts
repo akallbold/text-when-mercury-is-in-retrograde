@@ -37,7 +37,7 @@ const checkForMercuryAndSendSMS = async () => {
         console.log("Is mercury in retrograde today?", data.is_retrograde);
         return data.is_retrograde;
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
@@ -63,7 +63,7 @@ const checkForMercuryAndSendSMS = async () => {
         console.log("Was mercury in retrograde yesterday?", data.is_retrograde);
         return data.is_retrograde;
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     // get mercury in retrograde gif
