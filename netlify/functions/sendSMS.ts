@@ -1,6 +1,7 @@
 import twilio from "twilio";
 
 export const handler = async () => {
+  console.log("Welcome! ");
   try {
     checkForMercuryAndSendSMS();
     return {
@@ -88,6 +89,7 @@ const checkForMercuryAndSendSMS = async () => {
       const message = `Mercury is in retrograde. Be careful out there!`;
       const randomGif = await getRandomGif();
       if (to_phone_number && from_phone_number && account_sid && auth_token) {
+        console.log("Do we get in here? ");
         let client = twilio(account_sid, auth_token);
         client.messages
           .create({
