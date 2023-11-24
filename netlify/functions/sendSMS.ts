@@ -3,7 +3,6 @@ import twilio from "twilio";
 export const handler = async () => {
   console.log("Welcome!");
   try {
-    console.log("Welcome to the try!");
     checkForMercuryAndSendSMS();
     return {
       statusCode: 200,
@@ -17,13 +16,11 @@ export const handler = async () => {
 };
 
 const checkForMercuryAndSendSMS = async () => {
-  console.log("Welcome to the checkForMercuryAndSendSMS function!");
   const mercury_api = process.env.MERCURY_API;
   const giphy_api = process.env.GIPHY_API;
   const giphy_api_key = process.env.GIPHY_API_KEY;
-  if (mercury_api) {
-    console.log("We have a mercury_api!");
-
+  if (mercury_api && giphy_api && giphy_api_key) {
+    console.log("We have a mercury_api && giphy_api && giphy_api_key!");
     const isMercuryInRetrogradeFunctionToday = async () => {
       console.log(
         "Welcome to the isMercuryInRetrogradeFunctionToday function!"
@@ -37,7 +34,7 @@ const checkForMercuryAndSendSMS = async () => {
         console.log("Is mercury in retrograde today?", data.is_retrograde);
         return data.is_retrograde;
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
 
@@ -63,7 +60,7 @@ const checkForMercuryAndSendSMS = async () => {
         console.log("Was mercury in retrograde yesterday?", data.is_retrograde);
         return data.is_retrograde;
       } catch (error) {
-        console.error(error);
+        console.log(error);
       }
     };
     // get mercury in retrograde gif
