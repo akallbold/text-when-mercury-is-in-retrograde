@@ -84,7 +84,7 @@ const sendMMS = async () => {
   const to_phone_number = process.env.TO_PHONE_NUMBER;
   const from_phone_number = process.env.FROM_PHONE_NUMBER;
   const message = `Mercury is in retrograde. Be careful out there!`;
-  const randomGif = await getRandomGif();
+  // const randomGif = await getRandomGif();
   if (to_phone_number && from_phone_number && account_sid && auth_token) {
     console.log(
       "We have to_phone_number && from_phone_number && account_sid && auth_token"
@@ -96,7 +96,7 @@ const sendMMS = async () => {
         body: message,
         to: to_phone_number,
         from: from_phone_number,
-        mediaUrl: randomGif,
+        // mediaUrl: randomGif,
       })
       .then((message) => console.log(message.sid));
   }
