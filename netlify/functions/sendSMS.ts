@@ -27,9 +27,12 @@ const checkForMercuryAndSendSMS = async () => {
       );
 
       try {
+        console.log("here1");
         const response = await fetch(mercury_api, {
           method: "GET",
         });
+        console.log("here2");
+
         const data = await response.json();
         console.log("Is mercury in retrograde today?", data.is_retrograde);
         return data.is_retrograde;
