@@ -4,7 +4,7 @@ export const handler = async () => {
   const today = new Date();
   const yesterday = new Date();
   yesterday.setDate(yesterday.getDate() - 1);
-  console.log("Welcome!", { today, yesterday });
+  console.log("Welcome!");
   try {
     const isMercuryInRetrograde = await checkIfRetrograde(today);
     const wasMercuryInRetrogradeYesterday = await checkIfRetrograde(yesterday);
@@ -37,6 +37,7 @@ const getRandomGif = async () => {
           method: "GET",
         }
       );
+      console.log("finished success");
 
       const data = await response.json();
       console.log({ data });
@@ -45,6 +46,8 @@ const getRandomGif = async () => {
       const randomImage = gifArray[randomIndex].images.original.url;
       return randomImage;
     } catch (error) {
+      console.log("finished fail");
+
       console.error(error);
     }
   }
