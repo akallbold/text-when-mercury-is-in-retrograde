@@ -78,7 +78,6 @@ const checkForMercuryAndSendSMS = async () => {
     const isMercuryInRetrograde = await isMercuryInRetrogradeFunctionToday();
     const wasMercuryInRetrogradeYesterday =
       await wasMercuryInRetrogradeYesterdayFunction();
-    const randomGif = await getRandomGif();
 
     // if (isMercuryInRetrograde && !wasMercuryInRetrogradeYesterday){
     if (true) {
@@ -87,6 +86,7 @@ const checkForMercuryAndSendSMS = async () => {
       const to_phone_number = process.env.TO_PHONE_NUMBER;
       const from_phone_number = process.env.FROM_PHONE_NUMBER;
       const message = `Mercury is in retrograde. Be careful out there!`;
+      const randomGif = await getRandomGif();
       if (to_phone_number && from_phone_number && account_sid && auth_token) {
         let client = twilio(account_sid, auth_token);
         client.messages
