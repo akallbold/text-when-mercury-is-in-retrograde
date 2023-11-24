@@ -1,9 +1,9 @@
 import twilio from "twilio";
 
 export const handler = async () => {
-  console.log("Welcome!");
   const today = new Date();
   const yesterday = new Date(today.setDate(today.getDate() - 1));
+  console.log("Welcome!", { today, yesterday });
   try {
     const isMercuryInRetrograde = await checkIfRetrograde(today);
     const wasMercuryInRetrogradeYesterday = await checkIfRetrograde(yesterday);
@@ -28,6 +28,8 @@ const getRandomGif = async () => {
   console.log("In getRandomGif func");
   const searchString = "mercury+is+in+retrograde";
   if (giphy_api && giphy_api_key) {
+    console.log("we have giphy_api && giphy_api_key");
+
     try {
       const response = await fetch(
         `${giphy_api}?api_key=${giphy_api_key}&q=${searchString}&limit=10&offset=0&rating=g&lang=en&bundle=messaging_non_clips`,
@@ -49,9 +51,7 @@ const getRandomGif = async () => {
 
 const checkIfRetrograde = async (date) => {
   const mercury_api = process.env.MERCURY_API;
-
   if (mercury_api) {
-    console.log("checkIfRetrograde function!");
     const yyyy = date.getFullYear();
     const mm = String(date.getMonth() + 1).padStart(2, "0");
     const dd = String(date.getDate()).padStart(2, "0");
@@ -62,7 +62,7 @@ const checkIfRetrograde = async (date) => {
       });
       const data = await response.json();
       console.log(
-        "Was mercury in retrograde on: ?",
+        "Was mercury in retrograde on:",
         dateFormatted,
         data.is_retrograde
       );
@@ -74,9 +74,7 @@ const checkIfRetrograde = async (date) => {
 };
 
 const sendMMS = async () => {
-  console.log(
-    "Now we are in the part of the code where we have determined we need to send the MMS"
-  );
+  console.log(" send the MMS");
   const account_sid = process.env.ACCOUNT_SID;
   const auth_token = process.env.AUTH_TOKEN;
   const to_phone_number = process.env.TO_PHONE_NUMBER;
@@ -84,7 +82,9 @@ const sendMMS = async () => {
   const message = `Mercury is in retrograde. Be careful out there!`;
   const randomGif = await getRandomGif();
   if (to_phone_number && from_phone_number && account_sid && auth_token) {
-    console.log("We have the vars we need");
+    console.log(
+      "We have to_phone_number && from_phone_number && account_sid && auth_token"
+    );
     let client = twilio(account_sid, auth_token);
     console.log("Twilio config created");
     client.messages
