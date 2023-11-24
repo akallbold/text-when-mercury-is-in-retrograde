@@ -6,8 +6,10 @@ export const handler = async () => {
   yesterday.setDate(yesterday.getDate() - 1);
   console.log("Welcome!");
   try {
-    const isMercuryInRetrograde = await checkIfRetrograde(today);
-    const wasMercuryInRetrogradeYesterday = await checkIfRetrograde(yesterday);
+    const isMercuryInRetrograde = await checkIfRetrograde(formatDate(today));
+    const wasMercuryInRetrogradeYesterday = await checkIfRetrograde(
+      formatDate(yesterday)
+    );
     // if (isMercuryInRetrograde && !wasMercuryInRetrogradeYesterday) {
     sendMMS();
     // }
@@ -38,7 +40,6 @@ const getRandomGif = async () => {
         }
       );
       console.log("finished success");
-
       const data = await response.json();
       console.log({ data });
       const gifArray = data.data;
@@ -47,7 +48,6 @@ const getRandomGif = async () => {
       return randomImage;
     } catch (error) {
       console.log("finished fail");
-
       console.error(error);
     }
   }
@@ -56,25 +56,24 @@ const getRandomGif = async () => {
 const checkIfRetrograde = async (date) => {
   const mercury_api = process.env.MERCURY_API;
   if (mercury_api) {
-    const yyyy = date.getFullYear();
-    const mm = String(date.getMonth() + 1).padStart(2, "0");
-    const dd = String(date.getDate()).padStart(2, "0");
-    const dateFormatted = `${yyyy}-${mm}-${dd}`;
     try {
-      const response = await fetch(`${mercury_api}?date=${dateFormatted}`, {
+      const response = await fetch(`${mercury_api}?date=${date}`, {
         method: "GET",
       });
       const data = await response.json();
-      console.log(
-        "Was mercury in retrograde on:",
-        dateFormatted,
-        data.is_retrograde
-      );
+      console.log("Was mercury in retrograde on:", date, data.is_retrograde);
       return data.is_retrograde;
     } catch (error) {
       console.error(error);
     }
   }
+};
+
+const formatDate = (rawDate) => {
+  const yyyy = rawDate.getFullYear();
+  const mm = String(rawDate.getMonth() + 1).padStart(2, "0");
+  const dd = String(rawDate.getDate()).padStart(2, "0");
+  return `${yyyy}-${mm}-${dd}`;
 };
 
 const sendMMS = async () => {
