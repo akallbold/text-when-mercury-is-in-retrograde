@@ -53,7 +53,7 @@ const sendMMS = async () => {
   const auth_token = process.env.AUTH_TOKEN;
   const to_phone_number = process.env.TO_PHONE_NUMBER;
   const from_phone_number = process.env.FROM_PHONE_NUMBER;
-  const message = `Mercury is in retrograde. Be careful out there!`;
+  const message = `Mercury is in retrograde. Be careful out there!SMS`;
   if (to_phone_number && from_phone_number && account_sid && auth_token) {
     console.log(
       "We have to_phone_number && from_phone_number && account_sid && auth_token"
