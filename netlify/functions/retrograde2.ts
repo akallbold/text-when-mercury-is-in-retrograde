@@ -6,9 +6,6 @@ export const handler = async () => {
     // if (isMercuryInRetrograde && !wasMercuryInRetrogradeYesterday) {
     sendSMS();
     // }
-    return {
-      statusCode: 200,
-    };
   } catch (error) {
     return {
       statusCode: error.statusCode,
@@ -70,7 +67,6 @@ const formatDate = (rawDate) => {
 };
 
 const sendSMS = async () => {
-  console.log(" send the MMS");
   const account_sid = process.env.ACCOUNT_SID;
   const auth_token = process.env.AUTH_TOKEN;
   const to_phone_number = process.env.TO_PHONE_NUMBER;
@@ -82,7 +78,7 @@ const sendSMS = async () => {
       "We have to_phone_number && from_phone_number && account_sid && auth_token"
     );
     let client = twilio(account_sid, auth_token);
-    console.log("Twilio config created");
+    console.log("Twilio config created", client);
     client.messages
       .create({
         body: message,
