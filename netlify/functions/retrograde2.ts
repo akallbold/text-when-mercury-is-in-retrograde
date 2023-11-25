@@ -74,19 +74,19 @@ const sendSMS = async () => {
   const message = `Mercury is in retrograde. Be careful out there!MMS`;
   // const randomGif = await getRandomGif();
   if (to_phone_number && from_phone_number && account_sid && auth_token) {
-    console.log(
-      "We have to_phone_number && from_phone_number && account_sid && auth_token"
-    );
-    let client = twilio(account_sid, auth_token);
-    console.log("Twilio config created");
-    client.messages
-      .create({
+    const client = twilio(account_sid, auth_token);
+    try {
+      console.log("Twilio config created");
+      const resp = await client.messages.create({
         body: message,
         to: to_phone_number,
         from: from_phone_number,
         // mediaUrl: randomGif,
-      })
-      .then((message) => console.log(message.sid))
-      .catch((error) => console.error(error));
+      });
+      console.log({ resp });
+      console.log("Message sent: ", resp.sid);
+    } catch (error) {
+      console.error(error);
+    }
   }
 };
