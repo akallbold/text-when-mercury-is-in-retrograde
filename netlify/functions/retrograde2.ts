@@ -1,4 +1,3 @@
-import { error } from "console";
 import twilio from "twilio";
 
 export const handler = async () => {
@@ -43,29 +42,6 @@ const getRandomGif = async () => {
   }
 };
 
-const checkIfRetrograde = async (date) => {
-  const mercury_api = process.env.MERCURY_API;
-  if (mercury_api) {
-    try {
-      const response = await fetch(`${mercury_api}?date=${date}`, {
-        method: "GET",
-      });
-      const data = await response.json();
-      console.log("Was mercury in retrograde on:", date, data.is_retrograde);
-      return data.is_retrograde;
-    } catch (error) {
-      console.error(error);
-    }
-  }
-};
-
-const formatDate = (rawDate) => {
-  const yyyy = rawDate.getFullYear();
-  const mm = String(rawDate.getMonth() + 1).padStart(2, "0");
-  const dd = String(rawDate.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
-};
-
 const sendSMS = async () => {
   const account_sid = process.env.ACCOUNT_SID;
   const auth_token = process.env.AUTH_TOKEN;
@@ -75,8 +51,8 @@ const sendSMS = async () => {
   // const randomGif = await getRandomGif();
   if (to_phone_number && from_phone_number && account_sid && auth_token) {
     const client = twilio(account_sid, auth_token);
+    console.log("Twilio config created", { client });
     try {
-      console.log("Twilio config created");
       const resp = await client.messages.create({
         body: message,
         to: to_phone_number,
