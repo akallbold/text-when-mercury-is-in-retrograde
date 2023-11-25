@@ -4,6 +4,8 @@ export const handler = async () => {
   console.log("Welcome!");
   const retrograde_endpoint = process.env.RETROGRADE_ENDPOINT;
   if (retrograde_endpoint) {
+    console.log({ retrograde_endpoint });
+
     try {
       const response = await fetch(retrograde_endpoint, {
         method: "GET",
