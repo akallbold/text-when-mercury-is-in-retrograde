@@ -53,6 +53,7 @@ const sendSMS = async () => {
     const client = twilio(account_sid, auth_token);
     console.log("Twilio config created", { client });
     try {
+      console.log("Client.messages", client.messages);
       const resp = await client.messages.create({
         body: message,
         to: to_phone_number,
