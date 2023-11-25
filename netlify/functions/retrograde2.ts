@@ -1,9 +1,10 @@
+import { error } from "console";
 import twilio from "twilio";
 
 export const handler = async () => {
   try {
     // if (isMercuryInRetrograde && !wasMercuryInRetrogradeYesterday) {
-    sendMMS();
+    sendSMS();
     // }
     return {
       statusCode: 200,
@@ -68,7 +69,7 @@ const formatDate = (rawDate) => {
   return `${yyyy}-${mm}-${dd}`;
 };
 
-const sendMMS = async () => {
+const sendSMS = async () => {
   console.log(" send the MMS");
   const account_sid = process.env.ACCOUNT_SID;
   const auth_token = process.env.AUTH_TOKEN;
@@ -89,6 +90,7 @@ const sendMMS = async () => {
         from: from_phone_number,
         // mediaUrl: randomGif,
       })
-      .then((message) => console.log(message.sid));
+      .then((message) => console.log(message.sid))
+      .catch((error) => console.error(error));
   }
 };
